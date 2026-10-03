@@ -1,27 +1,18 @@
 // Builds the site as a static SPA and publishes it to the `gh-pages` branch.
 import { execSync } from "node:child_process";
-import { existsSync, writeFileSync, copyFileSync } from "node:fs";
+import { existsSync, writeFileSync, copyFileSync, rmSync } from "node:fs";
 import ghpages from "gh-pages";
 
 const run = (cmd) => execSync(cmd, { stdio: "inherit" });
 const out = "dist/client";
 
-// Work out the URL base path: "/" for custom domains and <user>.github.io repos, "/<repo>/" otherwise.
-let base = process.env.BASE_PATH;
-if (!base) {
-  base = "/";
-  if (!existsSync("public/CNAME")) {
-    try {
-      const remote = execSync("git remote get-url origin", { encoding: "utf8" }).trim();
-      const repo = remote.replace(/\.git$/, "").split(/[/:]/).pop();
-      if (repo && !/\.github\.io$/i.test(repo)) base = `/${repo}/`;
-    } catch {
-      console.warn("No git remote 'origin' found — building for base path '/'.");
-    }
-  }
-}
+// URL base path. The site is served from the root of its custom domain (see public/CNAME),
+// so the default is "/". Only set BASE_PATH=/<repo>/ if you publish to <user>.github.io/<repo>
+// WITHOUT a custom domain.
+const base = process.env.BASE_PATH ?? "/";
 console.log(`Building for GitHub Pages with base path: ${base}`);
 
+rmSync("dist", { recursive: true, force: true });
 const env = { ...process.env, GITHUB_PAGES: "true", BASE_PATH: base };
 execSync("npx vite build", { stdio: "inherit", env });
 
