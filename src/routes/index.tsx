@@ -17,16 +17,10 @@ import {
 } from "lucide-react";
 
 import equipmentImage from "../assets/joker-equipment.jpg";
-import logo from "../assets/joker-logo.jpg.asset.json";
-import salon from "../assets/joker-salon.jpg.asset.json";
-import products from "../assets/joker-products.jpg.asset.json";
-import video1 from "../assets/joker-video-1.mp4.asset.json";
-import video2 from "../assets/joker-video-2.mp4.asset.json";
-import video3 from "../assets/joker-video-3.mp4.asset.json";
-import poster1 from "../assets/joker-video-1.jpg.asset.json";
-import poster2 from "../assets/joker-video-2.jpg.asset.json";
-import poster3 from "../assets/joker-video-3.jpg.asset.json";
-import mapShot from "../assets/joker-map.jpg.asset.json";
+import logo from "../assets/joker-logo.png";
+import salon from "../assets/joker-salon.jpg";
+import products from "../assets/joker-products.jpg";
+import mapShot from "../assets/joker-map.jpg";
 import { createBooking } from "@/lib/bookings.functions";
 
 type Language = "en" | "fr" | "ar";
@@ -37,19 +31,18 @@ const whatsappNumber = "212684423974";
 const instagramUrl = "https://www.instagram.com/1joker_barber?stkn=aDlsbXUycjBzZXJ0";
 const mapUrl = "https://maps.app.goo.gl/mqdXrJfZkBGEpUuHA?g_st=aw";
 
-const vid = (src: string, poster: string): Media => ({ kind: "video", src, poster });
 const img = (src: string): Media => ({ kind: "image", src });
 const serviceMedia: Media[] = [
-  vid(video1.url, poster1.url),
-  img(salon.url),
-  vid(video2.url, poster2.url),
-  img(products.url),
-  img(salon.url),
-  img(products.url),
-  vid(video3.url, poster3.url),
+  img(equipmentImage),
+  img(salon),
+  img(products),
+  img(products),
+  img(salon),
+  img(products),
+  img(equipmentImage),
 ];
-const productMedia: Media[] = [img(equipmentImage), img(products.url), img(salon.url)];
-const fallbackMedia = img(salon.url);
+const productMedia: Media[] = [img(equipmentImage), img(products), img(salon)];
+const fallbackMedia = img(salon);
 
 function MediaView({ media, className }: { media: Media; className?: string }) {
   return media.kind === "video" ? (
@@ -403,7 +396,7 @@ function Index() {
       <header className="sticky top-0 z-50 border-b border-line/70 bg-ink/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 md:px-5">
           <a href="#top" className="flex shrink-0 items-center gap-2.5" aria-label="Joker Barber home">
-            <img src={logo.url} alt="" className="size-9 rounded-md border border-accent/50 object-cover" />
+            <img src={logo} alt="Joker Barber logo" className="size-9 rounded-full border border-accent/50 object-cover" />
             <span className="leading-none">
               <span className="block font-display text-lg uppercase text-frost">Joker Barber</span>
               <span className="mt-0.5 block font-mono text-[8px] text-muted">RABAT · MA</span>
@@ -455,7 +448,7 @@ function Index() {
             </div>
             <div className="reveal delay-2 lg:col-span-5">
               <div className="relative overflow-hidden rounded-xl border border-frost/10 bg-panel">
-                <img src={salon.url} alt="Inside Joker Barber in Rabat" fetchPriority="high" className="aspect-[4/5] w-full object-cover" />
+                <img src={salon} alt="Inside Joker Barber in Rabat" fetchPriority="high" className="aspect-[4/5] w-full object-cover" />
                 <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-lg border border-frost/10 bg-ink/80 px-4 py-3 backdrop-blur-md">
                   <span className="font-mono text-[9px] uppercase text-muted">Joker Barber</span>
                   <span className="font-mono text-[9px] uppercase text-accent">Hay Al Wahda · Rabat</span>
@@ -581,9 +574,9 @@ function Index() {
                 <a href="tel:0684423974" className="inline-flex items-center gap-2 rounded-md border border-line px-5 py-3 font-mono text-sm text-frost hover:border-frost"><Phone size={16} />{phoneDisplay}</a>
               </div>
             </div>
-            <a href={mapUrl} target="_blank" rel="noreferrer" className="group relative min-h-64 overflow-hidden rounded-lg border border-line bg-ink">
-              <img src={mapShot.url} alt="Map showing Joker Barber in Rabat" className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
-              <span className="absolute bottom-4 inline-flex items-center gap-2 text-xs font-semibold text-frost">Hay Al Wahda, Rabat<ArrowUpRight size={14} /></span>
+            <a href={mapUrl} target="_blank" rel="noreferrer" className="group relative block aspect-[3/2] overflow-hidden rounded-lg border border-line bg-ink">
+              <img src={mapShot} alt="Map showing Joker Barber in Rabat" className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
+              <span className="absolute bottom-3 start-3 inline-flex items-center gap-2 rounded-md bg-ink/85 px-3 py-1.5 text-xs font-semibold text-frost backdrop-blur">Hay Al Wahda, Rabat<ArrowUpRight size={14} /></span>
             </a>
           </div>
         </section>
@@ -591,7 +584,7 @@ function Index() {
 
       <footer className="border-t border-line bg-ink">
         <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 md:grid-cols-3">
-          <div className="flex items-start gap-3"><img src={logo.url} alt="" className="size-12 rounded-md border border-accent/50 object-cover" /><div><p className="font-display text-2xl uppercase text-frost">Joker Barber</p><p className="mt-2 font-mono text-[10px] text-muted">jokerbarber.ma</p></div></div>
+          <div className="flex items-start gap-3"><img src={logo} alt="Joker Barber logo" className="size-12 rounded-full border border-accent/50 object-cover" /><div><p className="font-display text-2xl uppercase text-frost">Joker Barber</p><p className="mt-2 font-mono text-[10px] text-muted">jokerbarber.ma</p></div></div>
           <div><p className="font-mono text-[10px] text-muted">{t.contact}</p><a href="tel:0684423974" className="mt-2 block text-sm text-frost hover:text-accent">{phoneDisplay}</a><a href={instagramUrl} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-2 text-sm text-muted hover:text-accent"><Instagram size={14} />@1joker_barber</a></div>
           <div><p className="font-mono text-[10px] text-muted">{t.visit}</p><p className="mt-2 text-sm text-frost">{t.address}</p><p className="mt-5 text-xs text-muted">© {new Date().getFullYear()} Joker Barber. {t.rights}</p></div>
         </div>
